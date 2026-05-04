@@ -1,8 +1,8 @@
 .expense-form {
   background: white;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 28px;
+  border-radius: 24px;
+  box-shadow: 0 22px 40px rgba(28, 49, 92, 0.08);
   height: fit-content;
   position: sticky;
   top: 20px;
@@ -10,29 +10,29 @@
 
 .expense-form h2 {
   margin-top: 0;
-  margin-bottom: 20px;
-  color: #333;
-  font-size: 20px;
+  margin-bottom: 18px;
+  color: #111827;
+  font-size: 24px;
 }
 
 .expense-form .error {
-  background-color: #ffebee;
-  color: #d32f2f;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 15px;
+  background-color: #fef2f2;
+  color: #b91c1c;
+  padding: 12px 14px;
+  border-radius: 14px;
+  margin-bottom: 18px;
   font-size: 13px;
-  border-left: 3px solid #d32f2f;
+  border-left: 4px solid #ef4444;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 6px;
-  color: #555;
+  margin-bottom: 8px;
+  color: #475569;
   font-weight: 600;
   font-size: 14px;
 }
@@ -41,11 +41,12 @@
 .form-group select,
 .form-group textarea {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  padding: 14px 16px;
+  border: 1px solid #d2d6dc;
+  border-radius: 14px;
   font-size: 14px;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background: #f8fafc;
 }
 
 .form-group input:focus,
@@ -53,25 +54,30 @@
 .form-group textarea:focus {
   outline: none;
   border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.12);
+  background: white;
 }
 
 .submit-btn {
   width: 100%;
-  padding: 12px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 14px 18px;
+  background: linear-gradient(135deg, #5f7cff 0%, #7b5dfa 100%);
   color: white;
-  border-radius: 5px;
-  font-weight: 600;
+  border-radius: 16px;
+  font-weight: 700;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
   margin-top: 10px;
+  border: none;
+  box-shadow: 0 12px 24px rgba(96, 95, 255, 0.18);
 }
 
 .submit-btn:hover:not(:disabled) {
   transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(96, 95, 255, 0.26);
 }
 
 .submit-btn:disabled {
-  opacity: 0.7;
+  opacity: 0.75;
   cursor: not-allowed;
 }
