@@ -11,7 +11,7 @@ function ExpenseForm({ onAddExpense }) {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const categories = ['bus', 'train', 'taxi', 'car', 'bike', 'other']
+  const categories = ['bus', 'keke', 'taxi', 'car', 'bike', 'other']
 
   const handleChange = (e) => {
     const { name, value } = e.target
