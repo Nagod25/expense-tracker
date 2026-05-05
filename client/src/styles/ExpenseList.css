@@ -159,6 +159,26 @@
   font-weight: 700;
 }
 
+.edit-btn-card {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #dbeafe;
+  color: #0284c7;
+  border: none;
+  border-radius: 999px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.edit-btn-card:hover {
+  background-color: #bfdbfe;
+  transform: scale(1.1);
+}
+
 .delete-btn-card {
   width: 32px;
   height: 32px;
@@ -184,6 +204,100 @@
   color: #6b7280;
   font-size: 13px;
   line-height: 1.4;
+}
+
+.expense-card.editing {
+  background: #fafbff;
+  border: 2px solid #667eea;
+}
+
+.expense-edit-form {
+  padding: 4px 0;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.expense-edit-form label {
+  color: #475569;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.expense-edit-form input,
+.expense-edit-form select,
+.expense-edit-form textarea {
+  padding: 10px 12px;
+  border: 1px solid #d2d6dc;
+  border-radius: 10px;
+  font-size: 13px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background: white;
+}
+
+.expense-edit-form input:focus,
+.expense-edit-form select:focus,
+.expense-edit-form textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  background: white;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.save-btn,
+.cancel-btn {
+  flex: 1;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.save-btn {
+  background: linear-gradient(135deg, #5f7cff 0%, #7b5dfa 100%);
+  color: white;
+  box-shadow: 0 8px 16px rgba(96, 95, 255, 0.18);
+}
+
+.save-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 20px rgba(96, 95, 255, 0.24);
+}
+
+.cancel-btn {
+  background: #f3f4ff;
+  color: #475569;
+  border: 1px solid #e5e7eb;
+}
+
+.cancel-btn:hover {
+  background: #eef2ff;
 }
 
 @media (max-width: 768px) {

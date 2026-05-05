@@ -52,6 +52,16 @@ function Dashboard({ user, onLogout }) {
     }
   }
 
+  const handleEditExpense = async (id, expenseData) => {
+    try {
+      await expensesAPI.update(id, expenseData)
+      fetchExpenses()
+    } catch (error) {
+      console.error('Failed to update expense:', error)
+      alert('Failed to update expense. Please try again.')
+    }
+  }
+
   return (
     <div className="dashboard">
       <header className="dashboard-header">
@@ -86,6 +96,7 @@ function Dashboard({ user, onLogout }) {
           <ExpenseList
             expenses={expenses}
             onDeleteExpense={handleDeleteExpense}
+            onEditExpense={handleEditExpense}
             filter={filter}
             onFilterChange={setFilter}
             loading={loading}

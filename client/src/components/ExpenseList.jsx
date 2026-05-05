@@ -1,9 +1,50 @@
+import { useState } from 'react'
 import '../styles/ExpenseList.css'
 
-function ExpenseList({ expenses, onDeleteExpense, filter, onFilterChange, loading }) {
+function ExpenseList({ expenses, onDeleteExpense, onEditExpense, filter, onFilterChange, loading }) {
+  const [editingId, setEditingId] = useState(null)
+  const [editFormData, setEditFormData] = useState({
+    date: '',
+    amount: '',
+    category: 'car',
+    description: ''
+  })
+
+  const categories = ['bus', 'keke', 'taxi', 'car', 'bike', 'other']
   const monthName = new Date(filter.year, filter.month - 1).toLocaleString('default', { month: 'long' })
   const total = expenses.reduce((sum, exp) => sum + parseFloat(exp.amount), 0)
   const average = expenses.length > 0 ? (total / expenses.length).toFixed(2) : 0
+
+  const handleEditClick = (expense) => {
+    setEditingId(expense.id)
+    setEditFormData({
+      date: expense.date,
+      amount: expense.amount.toString(),
+      category: expense.category,
+      description: expense.description || ''
+    })
+  }
+
+  const handleEditChange = (e) => {
+    const { name, value } = e.target
+    setEditFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleEditSave = async (expenseId) => {
+    if (!editFormData.amount || parseFloat(editFormData.amount) <= 0) {
+      alert('Please enter a valid amount')
+      return
+    }
+    await onEditExpense(expenseId, editFormData)
+    setEditingId(null)
+  }
+
+  const handleEditCancel = () => {
+    setEditingId(null)
+  }
 
   return (
     <div className="expense-list">
@@ -60,25 +101,89 @@ function ExpenseList({ expenses, onDeleteExpense, filter, onFilterChange, loadin
       ) : (
         <div className="expenses-grid">
           {expenses.map((exp) => (
-            <div key={exp.id} className="expense-card">
-              <div className="expense-card-header">
-                <div className="expense-card-left">
-                  <p className="expense-card-date">{new Date(exp.date).toLocaleDateString()}</p>
-                  <span className="category-pill">{exp.category.charAt(0).toUpperCase() + exp.category.slice(1)}</span>
-                </div>
-                <div className="expense-card-right">
-                  <span className="expense-card-amount">₦{parseFloat(exp.amount).toFixed(2)}</span>
-                  <button
-                    className="delete-btn-card"
-                    onClick={() => onDeleteExpense(exp.id)}
-                    title="Delete"
-                  >
-                    ✕
-                  </button>
+            editingId === exp.id ? (
+              <div key={exp.id} className="expense-card editing">
+                <div className="expense-edit-form">
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label>Date</label>
+                      <input
+                        type="date"
+                        name="date"
+                        value={editFormData.date}
+                        onChange={handleEditChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Amount (₦)</label>
+                      <input
+                        type="number"
+                        name="amount"
+                        value={editFormData.amount}
+                        onChange={handleEditChange}
+                        step="0.01"
+                        min="0"
+                      />
+                    </div>
+                  </div>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label>Category</label>
+                      <select
+                        name="category"
+                        value={editFormData.category}
+                        onChange={handleEditChange}
+                      >
+                        {categories.map(cat => (
+                          <option key={cat} value={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="form-group full-width">
+                    <label>Description</label>
+                    <textarea
+                      name="description"
+                      value={editFormData.description}
+                      onChange={handleEditChange}
+                      placeholder="Optional notes"
+                      rows="2"
+                    ></textarea>
+                  </div>
+                  <div className="edit-actions">
+                    <button className="save-btn" onClick={() => handleEditSave(exp.id)}>Save</button>
+                    <button className="cancel-btn" onClick={handleEditCancel}>Cancel</button>
+                  </div>
                 </div>
               </div>
-              {exp.description && <p className="expense-card-description">{exp.description}</p>}
-            </div>
+            ) : (
+              <div key={exp.id} className="expense-card">
+                <div className="expense-card-header">
+                  <div className="expense-card-left">
+                    <p className="expense-card-date">{new Date(exp.date).toLocaleDateString()}</p>
+                    <span className="category-pill">{exp.category.charAt(0).toUpperCase() + exp.category.slice(1)}</span>
+                  </div>
+                  <div className="expense-card-right">
+                    <span className="expense-card-amount">₦{parseFloat(exp.amount).toFixed(2)}</span>
+                    <button
+                      className="edit-btn-card"
+                      onClick={() => handleEditClick(exp)}
+                      title="Edit"
+                    >
+                      ✎
+                    </button>
+                    <button
+                      className="delete-btn-card"
+                      onClick={() => onDeleteExpense(exp.id)}
+                      title="Delete"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                </div>
+                {exp.description && <p className="expense-card-description">{exp.description}</p>}
+              </div>
+            )
           ))}
         </div>
       )}
