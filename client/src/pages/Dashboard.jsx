@@ -11,6 +11,7 @@ function Dashboard({ user, onLogout }) {
     month: new Date().getMonth() + 1,
     year: new Date().getFullYear()
   })
+  const [activeMobileTab, setActiveMobileTab] = useState('history')
 
   // Load expenses on mount and when filter changes
   useEffect(() => {
@@ -61,15 +62,35 @@ function Dashboard({ user, onLogout }) {
         </div>
       </header>
 
+      <div className="dashboard-tabs">
+        <button
+          className={activeMobileTab === 'history' ? 'dashboard-tab active' : 'dashboard-tab'}
+          onClick={() => setActiveMobileTab('history')}
+        >
+          Expense History
+        </button>
+        <button
+          className={activeMobileTab === 'log' ? 'dashboard-tab active' : 'dashboard-tab'}
+          onClick={() => setActiveMobileTab('log')}
+        >
+          Log Expense
+        </button>
+      </div>
+
       <main className="dashboard-main">
-        <ExpenseForm onAddExpense={handleAddExpense} />
-        <ExpenseList
-          expenses={expenses}
-          onDeleteExpense={handleDeleteExpense}
-          filter={filter}
-          onFilterChange={setFilter}
-          loading={loading}
-        />
+        <div className={`dashboard-panel history-panel ${activeMobileTab === 'history' ? 'active' : ''}`}>
+          <ExpenseList
+            expenses={expenses}
+            onDeleteExpense={handleDeleteExpense}
+            filter={filter}
+            onFilterChange={setFilter}
+            loading={loading}
+          />
+        </div>
+
+        <div className={`dashboard-panel log-panel ${activeMobileTab === 'log' ? 'active' : ''}`}>
+          <ExpenseForm onAddExpense={handleAddExpense} />
+        </div>
       </main>
     </div>
   )
