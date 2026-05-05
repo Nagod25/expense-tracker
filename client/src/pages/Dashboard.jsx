@@ -64,16 +64,16 @@ function Dashboard({ user, onLogout }) {
 
       <div className="dashboard-tabs">
         <button
-          className={activeMobileTab === 'history' ? 'dashboard-tab active' : 'dashboard-tab'}
-          onClick={() => setActiveMobileTab('history')}
-        >
-          Expense History
-        </button>
-        <button
           className={activeMobileTab === 'log' ? 'dashboard-tab active' : 'dashboard-tab'}
           onClick={() => setActiveMobileTab('log')}
         >
           Log Expense
+        </button>
+        <button
+          className={activeMobileTab === 'history' ? 'dashboard-tab active' : 'dashboard-tab'}
+          onClick={() => setActiveMobileTab('history')}
+        >
+          Expense History
         </button>
       </div>
 
