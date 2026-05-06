@@ -27,6 +27,7 @@ function ExpenseList({ expenses, onDeleteExpense, onEditExpense, filter, onFilte
   // Calculate monthly summary
   const uniqueDays = Object.keys(dailyTotals).length
   const monthlyTotal = Object.values(dailyTotals).reduce((sum, dayTotal) => sum + dayTotal, 0)
+  const avgDaily = uniqueDays > 0 ? (monthlyTotal / uniqueDays).toFixed(2) : '0.00'
 
   const handleEditClick = (expense) => {
     setEditingId(expense.id)
@@ -92,6 +93,10 @@ function ExpenseList({ expenses, onDeleteExpense, onEditExpense, filter, onFilte
           <div className="monthly-stat">
             <span>Monthly Total</span>
             <strong>₦{monthlyTotal.toFixed(2)}</strong>
+          </div>
+          <div className="monthly-stat">
+            <span>Average per Day</span>
+            <strong>₦{avgDaily}</strong>
           </div>
         </div>
       </div>
