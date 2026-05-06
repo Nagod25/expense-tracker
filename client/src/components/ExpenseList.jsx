@@ -15,6 +15,20 @@ function ExpenseList({ expenses, onDeleteExpense, onEditExpense, filter, onFilte
   const total = expenses.reduce((sum, exp) => sum + parseFloat(exp.amount), 0)
   const average = expenses.length > 0 ? (total / expenses.length).toFixed(2) : 0
 
+  // Calculate daily totals
+  const dailyTotals = expenses.reduce((acc, exp) => {
+    const date = new Date(exp.date).toLocaleDateString()
+    if (!acc[date]) {
+      acc[date] = 0
+    }
+    acc[date] += parseFloat(exp.amount)
+    return acc
+  }, {})
+
+  // Calculate monthly summary
+  const uniqueDays = Object.keys(dailyTotals).length
+  const monthlyTotal = Object.values(dailyTotals).reduce((sum, dayTotal) => sum + dayTotal, 0)
+
   const handleEditClick = (expense) => {
     setEditingId(expense.id)
     setEditFormData({
@@ -71,6 +85,42 @@ function ExpenseList({ expenses, onDeleteExpense, onEditExpense, filter, onFilte
           </div>
         </div>
       </div>
+
+      {/* Monthly Summary */}
+      <div className="monthly-summary">
+        <h3>Monthly Summary</h3>
+        <div className="monthly-stats">
+          <div className="monthly-stat">
+            <span>Days Logged</span>
+            <strong>{uniqueDays}</strong>
+          </div>
+          <div className="monthly-stat">
+            <span>Monthly Total</span>
+            <strong>₦{monthlyTotal.toFixed(2)}</strong>
+          </div>
+          <div className="monthly-stat">
+            <span>Avg per Day</span>
+            <strong>₦{uniqueDays > 0 ? (monthlyTotal / uniqueDays).toFixed(2) : '0.00'}</strong>
+          </div>
+        </div>
+      </div>
+
+      {/* Daily Totals */}
+      {Object.keys(dailyTotals).length > 0 && (
+        <div className="daily-totals">
+          <h3>Daily Breakdown</h3>
+          <div className="daily-totals-grid">
+            {Object.entries(dailyTotals)
+              .sort(([a], [b]) => new Date(b) - new Date(a))
+              .map(([date, amount]) => (
+                <div key={date} className="daily-total-card">
+                  <span className="daily-date">{date}</span>
+                  <span className="daily-amount">₦{amount.toFixed(2)}</span>
+                </div>
+              ))}
+          </div>
+        </div>
+      )}
 
       <div className="filter-section">
         <select 
