@@ -13,7 +13,6 @@ function ExpenseList({ expenses, onDeleteExpense, onEditExpense, filter, onFilte
   const categories = ['bus', 'keke', 'taxi', 'car', 'bike', 'other']
   const monthName = new Date(filter.year, filter.month - 1).toLocaleString('default', { month: 'long' })
   const total = expenses.reduce((sum, exp) => sum + parseFloat(exp.amount), 0)
-  const average = expenses.length > 0 ? (total / expenses.length).toFixed(2) : 0
 
   // Calculate daily totals
   const dailyTotals = expenses.reduce((acc, exp) => {
@@ -76,10 +75,6 @@ function ExpenseList({ expenses, onDeleteExpense, onEditExpense, filter, onFilte
             <strong>₦{total.toFixed(2)}</strong>
           </div>
           <div className="summary-card">
-            <span>Average</span>
-            <strong>₦{average}</strong>
-          </div>
-          <div className="summary-card">
             <span>Entries</span>
             <strong>{expenses.length}</strong>
           </div>
@@ -97,10 +92,6 @@ function ExpenseList({ expenses, onDeleteExpense, onEditExpense, filter, onFilte
           <div className="monthly-stat">
             <span>Monthly Total</span>
             <strong>₦{monthlyTotal.toFixed(2)}</strong>
-          </div>
-          <div className="monthly-stat">
-            <span>Avg per Day</span>
-            <strong>₦{uniqueDays > 0 ? (monthlyTotal / uniqueDays).toFixed(2) : '0.00'}</strong>
           </div>
         </div>
       </div>
