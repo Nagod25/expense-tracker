@@ -7,6 +7,7 @@ function ExpenseList({ expenses, onDeleteExpense, onEditExpense, filter, onFilte
     date: '',
     amount: '',
     category: 'car',
+    customCategory: '',
     description: ''
   })
 
@@ -30,11 +31,13 @@ function ExpenseList({ expenses, onDeleteExpense, onEditExpense, filter, onFilte
   const avgDaily = uniqueDays > 0 ? (monthlyTotal / uniqueDays).toFixed(2) : '0.00'
 
   const handleEditClick = (expense) => {
+    const categoryIsDefault = categories.includes(expense.category)
     setEditingId(expense.id)
     setEditFormData({
       date: expense.date,
       amount: expense.amount.toString(),
-      category: expense.category,
+      category: categoryIsDefault ? expense.category : 'other',
+      customCategory: categoryIsDefault ? '' : expense.category,
       description: expense.description || ''
     })
   }
@@ -43,7 +46,8 @@ function ExpenseList({ expenses, onDeleteExpense, onEditExpense, filter, onFilte
     const { name, value } = e.target
     setEditFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value,
+      ...(name === 'category' && value !== 'other' ? { customCategory: '' } : {})
     }))
   }
 
@@ -52,7 +56,20 @@ function ExpenseList({ expenses, onDeleteExpense, onEditExpense, filter, onFilte
       alert('Please enter a valid amount')
       return
     }
-    await onEditExpense(expenseId, editFormData)
+
+    const categoryToSave = editFormData.category === 'other'
+      ? editFormData.customCategory.trim() || ''
+      : editFormData.category
+
+    if (editFormData.category === 'other' && !categoryToSave) {
+      alert('Please enter a custom category')
+      return
+    }
+
+    await onEditExpense(expenseId, {
+      ...editFormData,
+      category: categoryToSave
+    })
     setEditingId(null)
   }
 
@@ -174,21 +191,35 @@ function ExpenseList({ expenses, onDeleteExpense, onEditExpense, filter, onFilte
                   </div>
                   <div className="form-row">
                     <div className="form-group">
-                      <label>Category</label>
-                      <select
-                        name="category"
-                        value={editFormData.category}
-                        onChange={handleEditChange}
-                      >
-                        {categories.map(cat => (
-                          <option key={cat} value={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</option>
-                        ))}
-                      </select>
-                    </div>
+                    <label>Category</label>
+                    <select
+                      name="category"
+                      value={editFormData.category}
+                      onChange={handleEditChange}
+                    >
+                      {categories.map(cat => (
+                        <option key={cat} value={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</option>
+                      ))}
+                    </select>
                   </div>
-                  <div className="form-group full-width">
-                    <label>Description</label>
-                    <textarea
+                </div>
+
+                {editFormData.category === 'other' && (
+                  <div className="form-group">
+                    <label>Custom Category</label>
+                    <input
+                      type="text"
+                      name="customCategory"
+                      value={editFormData.customCategory}
+                      onChange={handleEditChange}
+                      placeholder="Enter custom category"
+                    />
+                  </div>
+                )}
+
+                <div className="form-group full-width">
+                  <label>Description</label>
+                  <textarea
                       name="description"
                       value={editFormData.description}
                       onChange={handleEditChange}

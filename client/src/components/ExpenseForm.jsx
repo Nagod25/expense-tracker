@@ -6,6 +6,7 @@ function ExpenseForm({ onAddExpense }) {
     date: new Date().toISOString().split('T')[0],
     amount: '',
     category: 'car',
+    customCategory: '',
     description: ''
   })
   const [error, setError] = useState('')
@@ -17,7 +18,8 @@ function ExpenseForm({ onAddExpense }) {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value,
+      ...(name === 'category' && value !== 'other' ? { customCategory: '' } : {})
     }))
     setError('')
   }
@@ -34,12 +36,26 @@ function ExpenseForm({ onAddExpense }) {
         return
       }
 
-      await onAddExpense(formData)
+      const category = formData.category === 'other'
+        ? formData.customCategory.trim() || ''
+        : formData.category
+
+      if (formData.category === 'other' && !category) {
+        setError('Please enter a custom category')
+        setLoading(false)
+        return
+      }
+
+      await onAddExpense({
+        ...formData,
+        category
+      })
       
       setFormData({
         date: new Date().toISOString().split('T')[0],
         amount: '',
         category: 'car',
+        customCategory: '',
         description: ''
       })
     } catch (err) {
@@ -92,6 +108,19 @@ function ExpenseForm({ onAddExpense }) {
             ))}
           </select>
         </div>
+
+        {formData.category === 'other' && (
+          <div className="form-group">
+            <label>Custom Category</label>
+            <input
+              type="text"
+              name="customCategory"
+              value={formData.customCategory}
+              onChange={handleChange}
+              placeholder="Enter custom category"
+            />
+          </div>
+        )}
 
         <div className="form-group">
           <label>Description</label>
