@@ -168,8 +168,8 @@
 
 .filter-section select:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.12);
+  border-color: #98D208;
+  box-shadow: 0 0 0 4px rgba(152, 210, 8, 0.12);
 }
 
 .loading,
@@ -236,7 +236,7 @@
   padding: 6px 12px;
   border-radius: 999px;
   background: #eef2ff;
-  color: #3730a3;
+  color: #98D208;
   font-size: 12px;
   font-weight: 600;
   text-transform: capitalize;
@@ -304,7 +304,7 @@
 
 .expense-card.editing {
   background: #fafbff;
-  border: 2px solid #667eea;
+  border: 2px solid #98D208;
 }
 
 .expense-edit-form {
@@ -352,8 +352,8 @@
 .expense-edit-form select:focus,
 .expense-edit-form textarea:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #98D208;
+  box-shadow: 0 0 0 3px rgba(152, 210, 8, 0.1);
   background: white;
 }
 
@@ -376,14 +376,14 @@
 }
 
 .save-btn {
-  background: linear-gradient(135deg, #5f7cff 0%, #7b5dfa 100%);
+  background: linear-gradient(135deg, #98D208 0%, #98D208 100%);
   color: white;
-  box-shadow: 0 8px 16px rgba(96, 95, 255, 0.18);
+  box-shadow: 0 8px 16px rgba(152, 210, 8, 0.18);
 }
 
 .save-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 12px 20px rgba(96, 95, 255, 0.24);
+  box-shadow: 0 12px 20px rgba(152, 210, 8, 0.24);
 }
 
 .cancel-btn {

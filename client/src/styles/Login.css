@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #98D208 0%, #98D208 100%);
 }
 
 .login-form {
@@ -43,13 +43,13 @@
 .login-form input:focus,
 .login-form select:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #98D208;
 }
 
 .login-form button[type="submit"] {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #98D208 0%, #98D208 100%);
   color: white;
   border-radius: 5px;
   font-size: 16px;
@@ -89,7 +89,7 @@
 .link-btn {
   background: none;
   border: none;
-  color: #667eea;
+  color: #98D208;
   cursor: pointer;
   font-weight: 600;
   text-decoration: underline;
@@ -99,6 +99,6 @@
 }
 
 .link-btn:hover {
-  color: #764ba2;
+  color: #98D208;
 }
 

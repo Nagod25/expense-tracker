@@ -4,7 +4,7 @@
 }
 
 .dashboard-header {
-  background: linear-gradient(135deg, #5f7cff 0%, #7b5dfa 100%);
+  background: linear-gradient(135deg, #98D208 0%, #98D208 100%);
   color: white;
   padding: 24px 36px;
   display: flex;
@@ -80,10 +80,10 @@
 }
 
 .dashboard-tab.active {
-  background: linear-gradient(135deg, #5f7cff 0%, #7b5dfa 100%);
+  background: linear-gradient(135deg, #98D208 0%, #98D208 100%);
   color: white;
   border-color: transparent;
-  box-shadow: 0 14px 30px rgba(95, 124, 255, 0.14);
+  box-shadow: 0 14px 30px rgba(152, 210, 8, 0.14);
 }
 
 .dashboard-panel {
